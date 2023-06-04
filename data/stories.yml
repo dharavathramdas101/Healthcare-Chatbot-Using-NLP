@@ -1,0 +1,66 @@
+version: "3.1"
+
+stories:
+
+- story: User asks for disease description
+  steps:
+  - intent: ask_disease_description
+  - action: utter_ask_disease_description
+  - action: action_fetch_disease_description
+  - action: action_listen
+
+- story: User asks for symptoms of a disease
+  steps:
+  - intent: ask_symptoms
+  - action: utter_ask_symptoms
+  - action: action_fetch_symptoms
+  - action: action_listen
+
+- story: User asks for prevention measures
+  steps:
+  - intent: ask_prevention
+  - action: utter_ask_prevention
+  - action: action_fetch_prevention
+  - action: action_listen
+
+- story: User informs about having a disease
+  steps:
+  - intent: inform_disease
+  - slot_was_set:
+    - disease: "{disease}"
+  - action: action_fetch_disease_description
+  - action: action_fetch_symptoms
+  - action: action_fetch_prevention
+  - action: action_listen
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: User says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
